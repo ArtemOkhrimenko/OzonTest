@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package api.zip;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+
+option go_package = "cmd/start.proto";
+
+
+
+
+// External service zip for getting zip information.
+// Standard service codes:
+//    codes.OK
+//    codes.Canceled
+//    codes.DeadlineExceeded
+//    codes.Internal
+service zip {
+
+  // Generate Short Link.
+  //
+  // ```
+  // Example request:
+  //    longLink: www.vk.com/Asdfasdasdasdasdg?=
+  // ```
+  //
+  // ```
+  // Example response:
+  //  shortLink:   www.vk.com/QWEDSA123A
+  // ```
+  //
+  // Specific codes:
+  //    * codes.InvalidArgument
+  rpc GenerateShortLink (GenerateShortLinkRequest) returns (GenerateShortLinkResponse){
+        option (google.api.http) = {
+          post: "/zip"
+          body: "*"
+        };
+  }
+
+
+  // Get Link.
+  //
+  // ```
+  // Example request:
+  //   shortLink: www.vk.com/QWEDSA123A
+  // ```
+  //
+  // ```
+  // Example response:
+  //  longLink:   www.vk.com/Asdfasdasdasdasdg?=
+  // ```
+  //
+  // Specific codes:
+  //    * codes.InvalidArgument
+  rpc GetLongLink (GetLongLinkRequest) returns (GetLongLinkResponse){
+        option (google.api.http) = {
+          get: "/zip"
+        };
+  }
+}
+
+message GenerateShortLinkRequest{
+  string longLink = 1 [(validate.rules).string = {uri: true}];
+}
+
+message GenerateShortLinkResponse{
+  string shortLink = 1;
+}
+
+message GetLongLinkRequest{
+  string shortLink = 1 [(validate.rules).string = {uri: true}];
+}
+
+message GetLongLinkResponse{
+  string longLink = 1;
+}

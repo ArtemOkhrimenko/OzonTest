@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  zip_app:
+    container_name: zip_app
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - "./.env:/.env"
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - zip
+
+  zip_postgres:
+    container_name: zip_postgres
+    image: postgres:15.0
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=zip
+    networks:
+      - zip
+    ports:
+      - "5432:5432"
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready" ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+networks:
+  zip:

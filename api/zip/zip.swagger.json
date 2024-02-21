@@ -1,0 +1,138 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/zip/zip.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "zip"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/zip": {
+      "get": {
+        "summary": "Get Link.",
+        "description": "```\nExample request:\n  shortLink: www.vk.com/QWEDSA123A\n```\n\n```\nExample response:\n longLink:   www.vk.com/Asdfasdasdasdasdg?=\n```\n\nSpecific codes:\n   * codes.InvalidArgument",
+        "operationId": "zip_GetLongLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/zipGetLongLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shortLink",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "zip"
+        ]
+      },
+      "post": {
+        "summary": "Generate Short Link.",
+        "description": "```\nExample request:\n   longLink: www.vk.com/Asdfasdasdasdasdg?=\n```\n\n```\nExample response:\n shortLink:   www.vk.com/QWEDSA123A\n```\n\nSpecific codes:\n   * codes.InvalidArgument",
+        "operationId": "zip_GenerateShortLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/zipGenerateShortLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/zipGenerateShortLinkRequest"
+            }
+          }
+        ],
+        "tags": [
+          "zip"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "zipGenerateShortLinkRequest": {
+      "type": "object",
+      "properties": {
+        "longLink": {
+          "type": "string"
+        }
+      }
+    },
+    "zipGenerateShortLinkResponse": {
+      "type": "object",
+      "properties": {
+        "shortLink": {
+          "type": "string"
+        }
+      }
+    },
+    "zipGetLongLinkResponse": {
+      "type": "object",
+      "properties": {
+        "longLink": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
