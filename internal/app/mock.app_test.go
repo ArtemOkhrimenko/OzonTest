@@ -5,6 +5,7 @@
 package app_test
 
 import (
+	context "context"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -34,33 +35,48 @@ func (m *MockRepo) EXPECT() *MockRepoMockRecorder {
 }
 
 // GetURL mocks base method.
-func (m *MockRepo) GetURL(id int) (string, error) {
+func (m *MockRepo) GetURL(ctx context.Context, id int) (string, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetURL", id)
+	ret := m.ctrl.Call(m, "GetURL", ctx, id)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetURL indicates an expected call of GetURL.
-func (mr *MockRepoMockRecorder) GetURL(id interface{}) *gomock.Call {
+func (mr *MockRepoMockRecorder) GetURL(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetURL", reflect.TypeOf((*MockRepo)(nil).GetURL), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetURL", reflect.TypeOf((*MockRepo)(nil).GetURL), ctx, id)
+}
+
+// GetURLbyName mocks base method.
+func (m *MockRepo) GetURLbyName(ctx context.Context, link string) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetURLbyName", ctx, link)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetURLbyName indicates an expected call of GetURLbyName.
+func (mr *MockRepoMockRecorder) GetURLbyName(ctx, link interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetURLbyName", reflect.TypeOf((*MockRepo)(nil).GetURLbyName), ctx, link)
 }
 
 // SaveURL mocks base method.
-func (m *MockRepo) SaveURL(arg0 string) (int, error) {
+func (m *MockRepo) SaveURL(ctx context.Context, url string) (int, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SaveURL", arg0)
+	ret := m.ctrl.Call(m, "SaveURL", ctx, url)
 	ret0, _ := ret[0].(int)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // SaveURL indicates an expected call of SaveURL.
-func (mr *MockRepoMockRecorder) SaveURL(arg0 interface{}) *gomock.Call {
+func (mr *MockRepoMockRecorder) SaveURL(ctx, url interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SaveURL", reflect.TypeOf((*MockRepo)(nil).SaveURL), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SaveURL", reflect.TypeOf((*MockRepo)(nil).SaveURL), ctx, url)
 }
 
 // MockDecoder is a mock of Decoder interface.
